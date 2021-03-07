@@ -10,7 +10,7 @@ const prompt = require('./services/prompt');
 
 const ecc = require('eosjs-ecc');
 
-const Embedder = require('embedder');
+// const Embedder = require('embedder');
 const files = require('./services/files');
 
 
@@ -108,41 +108,41 @@ const createScatterInstance = async () => {
 
 	const repo = storage.getSimpleMode() ? 'Bridge' : 'ScatterEmbed';
 
-	Embedder.init(
-		require('../package').version,
-		repo,
-		process.env.PROOF_KEYS.split(','),
-		files,
-		ecc.sha256,
-		dialog.showErrorBox,
-		prompt.accepted,
-		(hashed, signed) => ecc.recoverHash(signed, hashed),
-		msg => loadingWindow.webContents.send('progress_event', msg),
-		process.env.LOCAL_TESTING
-	);
+	// Embedder.init(
+	// 	require('../package').version,
+	// 	repo,
+	// 	process.env.PROOF_KEYS.split(','),
+	// 	files,
+	// 	ecc.sha256,
+	// 	dialog.showErrorBox,
+	// 	prompt.accepted,
+	// 	(hashed, signed) => ecc.recoverHash(signed, hashed),
+	// 	msg => loadingWindow.webContents.send('progress_event', msg),
+	// 	process.env.LOCAL_TESTING
+	// );
 
-	if(!process.env.LOCAL_TESTING){
-		if(!await Embedder.check()){
-			const updateManually = await prompt.manualUpdate(`https://github.com/GetScatter/${repo}/releases`);
-			if(updateManually){
-				const zipFiles = await files.getFileLocation(['zip']);
-				if(!zipFiles || !zipFiles.length) return process.exit(0);
+	// if(!process.env.LOCAL_TESTING){
+	// 	if(!await Embedder.check()){
+	// 		const updateManually = await prompt.manualUpdate(`https://github.com/GetScatter/${repo}/releases`);
+	// 		if(updateManually){
+	// 			const zipFiles = await files.getFileLocation(['zip']);
+	// 			if(!zipFiles || !zipFiles.length) return process.exit(0);
 
-				const zipFileLocation = zipFiles[0];
-				const [repoTag, releaseTag, signature, ext] = zipFileLocation.split('/')[zipFileLocation.split('/').length-1].split('.');
-				const zipBuffer = await files.openFile(zipFileLocation, null);
-				const updated = await Embedder.loadManualZipFile(zipBuffer, signature, releaseTag.replace(/-/g, '.'));
-				if(!updated) {
-					dialog.showErrorBox('An error occurred', 'Looks like there was a problem with extracting this zip file. Contact support.');
-					return process.exit(0);
-				}
-			} else {
-				if(!await Embedder.hasLocalVersion()){
-					return process.exit(0);
-				}
-			}
-		}
-	}
+	// 			const zipFileLocation = zipFiles[0];
+	// 			const [repoTag, releaseTag, signature, ext] = zipFileLocation.split('/')[zipFileLocation.split('/').length-1].split('.');
+	// 			const zipBuffer = await files.openFile(zipFileLocation, null);
+	// 			const updated = await Embedder.loadManualZipFile(zipBuffer, signature, releaseTag.replace(/-/g, '.'));
+	// 			if(!updated) {
+	// 				dialog.showErrorBox('An error occurred', 'Looks like there was a problem with extracting this zip file. Contact support.');
+	// 				return process.exit(0);
+	// 			}
+	// 		} else {
+	// 			if(!await Embedder.hasLocalVersion()){
+	// 				return process.exit(0);
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	files.toggleAllowInternals(false);
 

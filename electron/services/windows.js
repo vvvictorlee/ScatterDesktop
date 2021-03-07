@@ -1,4 +1,4 @@
-const ApiActions = require("@walletpack/core/models/api/ApiActions");
+const ApiActions = require("@vvvictorlee2020/core/models/api/ApiActions");
 
 
 const electron = require('electron');

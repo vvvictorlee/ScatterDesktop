@@ -1,4 +1,4 @@
-const CoreSocketService = require("@walletpack/core/services/utility/SocketService");
+const CoreSocketService = require("@vvvictorlee2020/core/services/utility/SocketService");
 
 const {app, BrowserWindow} = require('electron');
 

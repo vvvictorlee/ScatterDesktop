@@ -5,21 +5,22 @@ const prompt = require('./prompt');
 const bip39 = require('bip39');
 const scrypt = require('scrypt-async');
 const AES = require("aes-oop").default;
-const Scatter = require('@walletpack/core/models/Scatter').default;
-const Error = require('@walletpack/core/models/errors/Error').default;
-const IdGenerator = require('@walletpack/core/util/IdGenerator').default;
-const Hasher = require('@walletpack/core/util/Hasher').default;
+const Scatter = require('@vvvictorlee2020/core/models/Scatter').default;
+const Error = require('@vvvictorlee2020/core/models/errors/Error').default;
+const IdGenerator = require('@vvvictorlee2020/core/util/IdGenerator').default;
+const Hasher = require('@vvvictorlee2020/core/util/Hasher').default;
 
-require('@walletpack/core/services/utility/Framework').default.init({
+require('@vvvictorlee2020/core/services/utility/Framework').default.init({
 	getVersion:() => require('../../package').version,
 });
 
 const plugins = {
-	eos:new (require('@walletpack/eosio').default)(),
-	trx:new (require('@walletpack/tron').default)(),
-	btc:new (require('@walletpack/bitcoin').default)(),
-	eth:new (require('@walletpack/ethereum').default)(),
-	fio:new (require('@walletpack/fio').default)()
+	roxe:new (require('@vvvictorlee2020/roxe').default)(),
+	eos:new (require('@vvvictorlee2020/eosio').default)(),
+	trx:new (require('@vvvictorlee2020/tron').default)(),
+	btc:new (require('@vvvictorlee2020/bitcoin').default)(),
+	eth:new (require('@vvvictorlee2020/ethereum').default)(),
+	fio:new (require('@vvvictorlee2020/fio').default)()
 }
 
 plugins.trx.init();

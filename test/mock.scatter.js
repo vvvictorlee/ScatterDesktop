@@ -2,14 +2,14 @@ const ecc = require('eosjs-ecc');
 
 module.exports = async () => {
 	return new Promise(async resolve => {
-		require('@walletpack/core/services/utility/Framework').default.init({
+		require('@vvvictorlee2020/core/services/utility/Framework').default.init({
 			getVersion:() => '1.0.0',
 		});
 
-		require('@walletpack/core/models/Scatter').default.create().then(async fakeScatter => {
+		require('@vvvictorlee2020/core/models/Scatter').default.create().then(async fakeScatter => {
 			fakeScatter.onboarded = true;
 
-			const network = require('@walletpack/core/models/Network').default.fromJson({
+			const network = require('@vvvictorlee2020/core/models/Network').default.fromJson({
 				blockchain:'eos',
 				name:'EOS Mainnet',
 				host:'nodes.get-scatter.com',
@@ -18,17 +18,17 @@ module.exports = async () => {
 				chainId:'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
 			});
 
-			const privateKey = await require('@walletpack/core/util/Crypto').default.generatePrivateKey();
+			const privateKey = await require('@vvvictorlee2020/core/util/Crypto').default.generatePrivateKey();
 			const eosPublicKey = ecc.PrivateKey(privateKey).toPublic().toString('EOS');
 
-			const keypair = require('@walletpack/core/models/Keypair').default.fromJson({
+			const keypair = require('@vvvictorlee2020/core/models/Keypair').default.fromJson({
 				name:'testkey',
 				privateKey:privateKey,
 				publicKeys:[{key:eosPublicKey, blockchain:'eos'}],
 				blockchains:['eos']
 			});
 
-			const account = require('@walletpack/core/models/Account').default.fromJson({
+			const account = require('@vvvictorlee2020/core/models/Account').default.fromJson({
 				name:'testaccount',
 				authority:'active',
 				publicKey:keypair.publicKeys[0].key,
